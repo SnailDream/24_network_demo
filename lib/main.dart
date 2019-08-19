@@ -77,6 +77,20 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  dioParallDemo() async {
+    try {
+      Dio dio = new Dio();
+      List<Response> responseX= await Future.wait([dio.get("https://flutter.dev"),dio.get("https://pub.dev/packages/dio")]);
+
+      //打印请求1响应结果
+      print("Response1: ${responseX[0].toString()}");
+      //打印请求2响应结果
+      print("Response2: ${responseX[1].toString()}");
+    }
+    catch(e) {
+      print('Error:$e');
+    }
+  }
 
   dioInterceptorReject() async {
     Dio dio = new Dio();
@@ -193,6 +207,10 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(
               child: Text('Dio demo'),
               onPressed: ()=>dioDemo(),
+            ),
+            RaisedButton(
+              child: Text('Dio 并发demo'),
+              onPressed: ()=>dioParallDemo(),
             ),
             RaisedButton(
               child: Text('Dio 拦截'),
